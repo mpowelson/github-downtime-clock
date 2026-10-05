@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#070708">
+    <meta
+      name="description"
+      content="Price the last 90 days of GitHub downtime at an hourly rate. Full outages and degraded time are counted separately."
+    >
+    <title>GitHub downtime clock</title>
+    <link rel="stylesheet" href="site.css">
+  </head>
+  <body>
+    <main>
+      <header class="masthead">
+        <p class="eyebrow">Last 90 days</p>
+        <div class="title-row">
+          <h1>GitHub downtime clock</h1>
+          <p id="status-pill" class="pill">Loading</p>
+        </div>
+        <p id="status-line" class="status-line" role="status">Loading the last 90 days from GitHub's status page.</p>
+        <div class="controls">
+          <label class="field">
+            <span>Component</span>
+            <select id="component"></select>
+          </label>
+          <label class="field">
+            <span>Hourly rate</span>
+            <span class="rate">
+              <span class="rate-prefix" aria-hidden="true">$</span>
+              <input
+                id="rate"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                placeholder="150"
+                autocomplete="off"
+              >
+            </span>
+          </label>
+        </div>
+      </header>
+
+      <section class="clocks" aria-label="Downtime cost">
+        <article id="full-card" class="clock clock-full">
+          <h2>Full outage</h2>
+          <p id="full-cost" class="dollars">—</p>
+          <p id="full-hours" class="hours">—</p>
+          <p class="hint">Major outage. GitHub counts this time in full.</p>
+        </article>
+        <article id="degraded-card" class="clock clock-degraded">
+          <h2>Degraded</h2>
+          <p id="degraded-cost" class="dollars">—</p>
+          <p id="degraded-hours" class="hours">—</p>
+          <p id="degraded-split" class="split">—</p>
+          <p class="hint">Degraded performance and partial outages, priced for the whole interval.</p>
+        </article>
+      </section>
+
+      <p id="combined" class="combined"></p>
+      <p id="compare" class="compare"></p>
+
+      <section class="history" aria-labelledby="history-heading">
+        <h2 id="history-heading">Incidents in this window</h2>
+        <ol id="incidents" class="incidents"></ol>
+      </section>
+
+      <footer>
+        <p>
+          Unofficial. Totals are computed from
+          <a href="https://www.githubstatus.com/">GitHub's public status page</a>.
+          Overlapping incidents are counted once.
+          GitHub's published uptime counts a major outage in full and a partial outage at 30%.
+          Degraded performance does not change that percentage.
+          Both clocks use the hourly rate you enter, which stays in this browser.
+        </p>
+      </footer>
+    </main>
+    <noscript>This page needs JavaScript to read GitHub's status API.</noscript>
+    <script src="site.js"></script>
+  </body>
+</html>
