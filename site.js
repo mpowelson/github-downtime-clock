@@ -1,6 +1,7 @@
 (function () {
   const STATUS_ORIGIN = "https://www.githubstatus.com";
   const STORAGE_RATE = "github-downtime-clock.rate";
+  const DEFAULT_RATE = "65";
   const STORAGE_COMPONENT = "github-downtime-clock.component";
   const REFRESH_MS = 60 * 1000;
 
@@ -470,7 +471,7 @@
     const params = new URLSearchParams(location.search);
     const rateInput = document.getElementById("rate");
     const fromQuery = params.get("rate");
-    rateInput.value = fromQuery !== null ? fromQuery : localStorage.getItem(STORAGE_RATE) || "";
+    rateInput.value = fromQuery !== null ? fromQuery : localStorage.getItem(STORAGE_RATE) || DEFAULT_RATE;
     rateInput.addEventListener("input", rememberRate);
 
     document.getElementById("component").addEventListener("change", function (event) {
